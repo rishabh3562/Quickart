@@ -1,13 +1,10 @@
-"use client";
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
 import Card from "../components/products/Card";
 import SearchWithDropdown from "@/components/SearchWithDropdown";
-import { useProductStore } from "@/store";
-import { products as initialProducts } from "@/data/index";
 import { categories, brands, ratings } from "@/data/index";
 
-export default function ProductsPage() {
+export default function ProductsPage({ initialProducts, totalPages }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [highToLow, setHighToLow] = useState(false);
   const [lowToHigh, setLowToHigh] = useState(false);
@@ -18,13 +15,10 @@ export default function ProductsPage() {
   const [productsPerPage] = useState(10);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  const [filteredProducts, setFilteredProducts] = useProductStore((state) => [
-    state.product,
-    state.setProduct,
-  ]);
+  const [filteredProducts, setFilteredProducts] = useState(initialProducts);
   const [suggestions, setSuggestions] = useState(
     initialProducts.map((p) => p.name)
-  ); // Initial suggestions
+  );
 
   // Filter products based on selected criteria
   useEffect(() => {
@@ -60,12 +54,10 @@ export default function ProductsPage() {
       updatedProducts = updatedProducts.sort((a, b) => b.price - a.price);
     } else if (lowToHigh) {
       updatedProducts = updatedProducts.sort((a, b) => a.price - b.price);
-    } else {
-      updatedProducts = updatedProducts.sort((a, b) => a.id - b.id);
     }
 
     setFilteredProducts(updatedProducts);
-    setSuggestions(updatedProducts.map((p) => p.name)); // Update suggestions based on filtered products
+    setSuggestions(updatedProducts.map((p) => p.name));
   }, [
     selectedCategory,
     selectedBrand,
@@ -74,6 +66,7 @@ export default function ProductsPage() {
     lowToHigh,
     minPrice,
     maxPrice,
+    initialProducts,
   ]);
 
   // Handle search queries
@@ -81,11 +74,7 @@ export default function ProductsPage() {
     const searchResults = initialProducts.filter((p) =>
       p.name.toLowerCase().includes(query.toLowerCase())
     );
-    // console.log("searchResults", searchResults);
     setFilteredProducts(searchResults);
-    // console.log("filteredProducts", filteredProducts);
-    // setSuggestions(searchResults.map(p => p.name)); // Update suggestions on search
-    // console.log("suggestions", suggestions);
   };
 
   // Pagination logic
@@ -95,7 +84,10 @@ export default function ProductsPage() {
     indexOfFirstProduct,
     indexOfLastProduct
   );
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const totalPagesCalculated = Math.ceil(
+    filteredProducts.length / productsPerPage
+  );
+
   function handleHighToLow() {
     setHighToLow(true);
     setLowToHigh(false);
@@ -105,6 +97,7 @@ export default function ProductsPage() {
     setLowToHigh(true);
     setHighToLow(false);
   }
+
   function handleClearFilters() {
     setHighToLow(false);
     setLowToHigh(false);
@@ -252,41 +245,31 @@ export default function ProductsPage() {
             <SearchWithDropdown
               suggestions={suggestions}
               onSearch={handleSearch}
+              setSuggestions={setSuggestions}
             />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
-              {currentProducts.map((p) => (
-                <Card key={p.id} product={p} />
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+              {currentProducts.map((product) => (
+                <Card key={product.id} product={product} />
               ))}
             </div>
-            <div className="flex justify-between items-center mt-8">
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center mt-6">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => setCurrentPage(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50"
               >
                 Previous
               </button>
-              <div className="flex space-x-2">
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i + 1}
-                    onClick={() => setCurrentPage(i + 1)}
-                    className={`px-4 py-2 rounded-lg ${
-                      currentPage === i + 1
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                    }`}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
+              <span className="px-4 py-2">
+                {currentPage} of {totalPagesCalculated}
+              </span>
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPagesCalculated}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50"
               >
                 Next
               </button>
@@ -297,3 +280,38 @@ export default function ProductsPage() {
     </div>
   );
 }
+export async function getServerSideProps(context) {
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/product?page=1&limit=10`
+    );
+
+    // Check if the response is OK (status code 200)
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    // Ensure data is structured as expected
+    if (!data.products) {
+      throw new Error("Invalid response structure");
+    }
+
+    return {
+      props: {
+        initialProducts: data.products,
+        totalPages: data.pages,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    return {
+      props: {
+        initialProducts: [],
+        totalPages: 0,
+      },
+    };
+  }
+}
+

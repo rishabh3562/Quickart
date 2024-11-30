@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLogin } from "@/hooks/useLogin";
 import { useUserStore } from "@/store";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -68,9 +69,9 @@ const Login = () => {
           Login
         </button>
         <div className="mt-4 text-center">
-          <a href="/register" className="text-blue-500 hover:underline">
-            Don't have an account? Register
-          </a>
+          <Link href="/register" className="text-blue-500 hover:underline">
+            Don&apost have an account? Register
+          </Link>
         </div>
       </form>
     </div>
