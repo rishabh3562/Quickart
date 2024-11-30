@@ -1,5 +1,5 @@
 export const categories = ["All Categories", "Men's Wear", "Women's Wear", "Electronics", "Footwear", "Home Appliances"];
-export const brands = ["KharidLo", "Random",];
+export const brands = ["QuicKart", "Random",];
 export const ratings = {
   5: "5 Stars",
   4.9: "4.9 & up",
@@ -16,7 +16,7 @@ export const ratings = {
 export const products = [
   {
     id: 1,
-    name: "KharidLo Men Kurta",
+    name: "QuicKart Men Kurta",
     href: "#",
     price: "2999",
     description:
@@ -46,7 +46,7 @@ export const products = [
     imageAlt:
       "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.",
     category: "Men's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.5,
     reviews: 120,
@@ -58,14 +58,14 @@ export const products = [
     href: "#",
     price: "3999",
     description:
-      "Minimalist Kurti with a touch of KharidLo. Made from the finest cotton and designed for comfort.",
+      "Minimalist Kurti with a touch of QuicKart. Made from the finest cotton and designed for comfort.",
     options: "Black",
     quantity: 1,
     images: [
       {
         id: 1,
         src: "https://images.meesho.com/images/products/297536726/qoped_400.webp",
-        alt: "Kurti with a touch of KharidLo.",
+        alt: "Kurti with a touch of QuicKart.",
       },
     ],
     details: [
@@ -78,7 +78,7 @@ export const products = [
       "https://images.meesho.com/images/products/297536726/qoped_400.webp",
     imageAlt: "Front of plain black t-shirt.",
     category: "Women's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.2,
     reviews: 80,
@@ -90,19 +90,19 @@ export const products = [
     href: "#",
     price: "6999",
     description:
-      "Men's Kurta with a touch of KharidLo. Made from the finest cotton and designed for comfort.",
+      "Men's Kurta with a touch of QuicKart. Made from the finest cotton and designed for comfort.",
     options: "8 colors",
     quantity: 1,
     images: [
       {
         id: 1,
         src: "https://images.meesho.com/images/products/279990214/zesg6_512.webp",
-        alt: "Men's Kurta with a touch of KharidLo.",
+        alt: "Men's Kurta with a touch of QuicKart.",
       },
       {
         id: 2,
         src: "https://images.meesho.com/images/products/279990215/ddjbv_512.webp",
-        alt: "Men's Kurta with a touch of KharidLo.",
+        alt: "Men's Kurta with a touch of QuicKart.",
       },
     ],
     details: [
@@ -113,9 +113,9 @@ export const products = [
     ],
     imageSrc:
       "https://images.meesho.com/images/products/279990215/ddjbv_512.webp",
-    imageAlt: "Men's Kurta with a touch of KharidLo.",
+    imageAlt: "Men's Kurta with a touch of QuicKart.",
     category: "Men's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.8,
     reviews: 150,
@@ -127,19 +127,19 @@ export const products = [
     href: "#",
     price: "20999",
     description:
-      "Banarasi Saree with a touch of KharidLo. Made from the finest cotton and designed for comfort.",
+      "Banarasi Saree with a touch of QuicKart. Made from the finest cotton and designed for comfort.",
     options: "Black",
     quantity: 1,
     images: [
       {
         id: 1,
         src: "https://images.meesho.com/images/products/413547105/dhpgq_512.webp",
-        alt: "Saree with a touch of KharidLo.",
+        alt: "Saree with a touch of QuicKart.",
       },
       {
         id: 2,
         src: "https://images.meesho.com/images/products/413547105/fp3pk_512.webp",
-        alt: "Saree with a touch of KharidLo.",
+        alt: "Saree with a touch of QuicKart.",
       },
     ],
     details: [
@@ -152,7 +152,7 @@ export const products = [
       "https://images.meesho.com/images/products/413547105/dhpgq_512.webp",
     imageAlt: "Front of plain black t-shirt.",
     category: "Women's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.7,
     reviews: 200,
@@ -164,14 +164,14 @@ export const products = [
     href: "#",
     price: "1099",
     description:
-      "Casual Kurta with a touch of KharidLo. Made from the finest cotton and designed for comfort.",
+      "Casual Kurta with a touch of QuicKart. Made from the finest cotton and designed for comfort.",
     options: "8 colors",
     quantity: 1,
     images: [
       {
         id: 1,
         src: "https://images.meesho.com/images/products/229165166/bchqs_512.webp",
-        alt: "Casual Kurta with a touch of KharidLo.",
+        alt: "Casual Kurta with a touch of QuicKart.",
       },
       {
         id: 2,
@@ -187,9 +187,9 @@ export const products = [
     ],
     imageSrc:
       "https://images.meesho.com/images/products/229165166/bchqs_512.webp",
-    imageAlt: "Casual Kurta with a touch of KharidLo.",
+    imageAlt: "Casual Kurta with a touch of QuicKart.",
     category: "Men's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.1,
     reviews: 60,
@@ -224,9 +224,9 @@ export const products = [
     ],
     imageSrc:
       "https://images.meesho.com/images/products/425170306/tg1di_512.webp",
-    imageAlt: "Festive Kurta with a touch of KharidLo.",
+    imageAlt: "Festive Kurta with a touch of QuicKart.",
     category: "Men's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Cotton",
     rating: 4.6,
     reviews: 90,
@@ -238,19 +238,19 @@ export const products = [
     href: "#",
     price: "7999",
     description:
-      "Georgette Saree with a touch of KharidLo. Made from the finest cotton and designed for comfort.",
+      "Georgette Saree with a touch of QuicKart. Made from the finest cotton and designed for comfort.",
     options: "8 colors",
     quantity: 1,
     images: [
       {
         id: 1,
         src: "https://images.meesho.com/images/products/436192775/mroe9_512.webp",
-        alt: "Georgette Saree with a touch of KharidLo.",
+        alt: "Georgette Saree with a touch of QuicKart.",
       },
       {
         id: 2,
         src: "https://images.meesho.com/images/products/436192775/cvg5l_512.webp",
-        alt: "Georgette Saree with a touch of KharidLo.",
+        alt: "Georgette Saree with a touch of QuicKart.",
       },
     ],
     details: [
@@ -261,9 +261,9 @@ export const products = [
     ],
     imageSrc:
       "https://images.meesho.com/images/products/436192775/mroe9_512.webp",
-    imageAlt: "Georgette Saree with a touch of KharidLo.",
+    imageAlt: "Georgette Saree with a touch of QuicKart.",
     category: "Women's Wear",
-    brand: "KharidLo",
+    brand: "QuicKart",
     material: "Georgette",
     rating: 4.4,
     reviews: 110,

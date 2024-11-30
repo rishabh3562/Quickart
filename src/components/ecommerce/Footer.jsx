@@ -6,15 +6,13 @@ function Footer() {
     <footer className="bg-white text-black">
       <div className="container mx-auto px-4 py-8 mt-8">
         <div className="flex flex-wrap justify-between items-start">
-        
           <div className="w-full md:w-1/3 mb-8 md:mb-0">
-            <h2 className="text-2xl font-bold font-Lustria">KharidLo</h2>
+            <h2 className="text-2xl font-bold font-Lustria">QuicKart</h2>
             <p className="mt-4 text-sm font-Lato text-gray-600">
               Get the latest fashion trends and be inspired
             </p>
           </div>
 
-         
           <div className="w-full md:w-1/3 mb-8 md:mb-0">
             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -41,7 +39,6 @@ function Footer() {
             </ul>
           </div>
 
-        
           <div className="w-full md:w-1/3">
             <h3 className="text-xl font-semibold mb-4">Stay Connected</h3>
             <form className="mb-4">
@@ -76,7 +73,7 @@ function Footer() {
 
         <div className="mt-8 border-t pt-4 text-center">
           <p className="text-sm text-gray-500">
-            &copy; 2024 KharidLo. All rights reserved.
+            &copy; 2024 QuicKart. All rights reserved.
           </p>
         </div>
       </div>

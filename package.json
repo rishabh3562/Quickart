@@ -1,5 +1,5 @@
 {
-  "name": "profile-fyi-assignment",
+  "name": "coneixement",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@iconify/react": "^5.0.2",
     "axios": "^1.7.4",
     "framer-motion": "^11.3.28",
+    "lucide-react": "^0.462.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",

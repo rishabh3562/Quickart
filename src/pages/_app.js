@@ -8,10 +8,11 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div>
-      {!isHomePage && (<Layout > <Component {...pageProps} /></Layout>)}
+      {/* {!isHomePage && (<Layout > <Component {...pageProps} /></Layout>)}
       {
         isHomePage && (<Component {...pageProps} />)
-      }
+      } */}
+      <Layout > <Component {...pageProps} /></Layout>
     </div>
   );
 }

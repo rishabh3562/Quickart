@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["tailwindui.com","rukminim2.flixcart.com", "images.meesho.com", "example.com", "m.media-amazon.com"], // Allow images from tailwindui.com
-  
+    domains: ["tailwindui.com", "rukminim2.flixcart.com", "images.meesho.com", "example.com", "m.media-amazon.com", "images.unsplash.com"], // Allow images from tailwindui.com
+
   },
 };
 

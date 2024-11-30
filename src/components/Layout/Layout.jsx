@@ -4,7 +4,7 @@ export default function Layout({ children }) {
   return (
     <>
       <Navbar />
-      <div className="w-full flex flex-row justify-center my-5 px-2"></div>
+      <div className="w-full flex flex-row justify-center  px-2"></div>
       <main>{children}</main>
       <Footer />
     </>
