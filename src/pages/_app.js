@@ -13,6 +13,7 @@ const {hydrate} =useUserStore();
     hydrate(cookies); // Initialize store with cookies if available
   }, []);
 
+
   return (
     <div>
       {/* {!isHomePage && (<Layout > <Component {...pageProps} /></Layout>)}
