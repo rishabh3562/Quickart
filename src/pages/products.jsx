@@ -233,13 +233,14 @@ export async function getServerSideProps({ query }) {
     const totalPages = Math.ceil(data.total / productsPerPage);
 
     // Return products and filter data (categories, brands, etc.)
+    // In getServerSideProps, already fetched categories, brands, and ratings
     return {
       props: {
-        products: data.products || [],
+        products: data.products,
         totalPages: totalPages,
-        categories: data.categories || [],
-        brands: data.brands || [],
-        ratings: data.ratings || [],
+        categories: data.categories, // Dynamically populated categories
+        brands: data.brands, // Dynamically populated brands
+        ratings: data.ratings, // Dynamically populated ratings
         currentPage: parseInt(page, 10),
         category,
         brand,
