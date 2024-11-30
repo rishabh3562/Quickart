@@ -37,14 +37,7 @@ const likeStore = (set) => ({
   setLike: (data) => set({ like: data }),
 });
 
-const userStore = (set) => ({
-  user: null,
-  accessToken: null,
-  refreshToken: null,
-  setUser: (user) => set({ user }),
-  setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
-  logout: () => set({ user: null, accessToken: null, refreshToken: null }),
-});
+
 
 export const useLikeStore = create(
   persist(likeStore, {
@@ -53,9 +46,48 @@ export const useLikeStore = create(
   })
 );
 
+// const userStore = (set) => ({
+//   user: null,
+//   accessToken: null,
+//   refreshToken: null,
+//   setUser: (user) => set({ user }),
+//   setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
+//   logout: () => set({ user: null, accessToken: null, refreshToken: null }),
+// });
+
+// export const useUserStore = create(
+//   persist(userStore, {
+//     name: "user",
+//     storage: createJSONStorage(() => localStorage),
+//   })
+// );
+
+const userStore = (set) => ({
+  user: null,
+  accessToken: null,
+  refreshToken: null,
+  setUser: (user) => set({ user }),
+  setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
+  logout: () => set({ user: null, accessToken: null, refreshToken: null }),
+  hydrate: (cookies) => {
+    // Optionally, hydrate user state from cookies if available
+    if (cookies.accessToken && cookies.refreshToken) {
+      set({
+        accessToken: cookies.accessToken,
+        refreshToken: cookies.refreshToken,
+      });
+    }
+  },
+});
+
 export const useUserStore = create(
   persist(userStore, {
     name: "user",
     storage: createJSONStorage(() => localStorage),
+    partialize: (state) => ({
+      user: state.user,
+      accessToken: state.accessToken,
+      refreshToken: state.refreshToken,
+    }),
   })
 );

@@ -3,23 +3,21 @@ import { useUserStore } from "@/store";
 import axios from "axios";
 
 export const useRegister = () => {
-    const { setUser ,setTokens} = useUserStore();
-
+    const { setUser, setTokens } = useUserStore();
 
     const register = async (email, password) => {
         try {
             const response = await axios.post("/api/auth/register", { email, password });
-           console.log("response in the useregister hook")
-            const { accessToken, refreshToken } = response.data;
 
-            // Store JWTs and user data
-            setTokens(accessToken, refreshToken);
-
-            // Optionally, store user details from token or DB
+            // At this point, the JWT tokens are already set in cookies (no need to handle them here)
+            // Get the user information from the response or directly from the stored data
             const user = { email };
             setUser(user);
+            // Optionally, you can fetch user data from an API if necessary after registration
+
         } catch (error) {
             console.error("Registration failed", error);
+            throw error; // Let the caller handle errors if needed
         }
     };
 
