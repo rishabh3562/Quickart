@@ -1,124 +1,26 @@
-import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout/Layout";
-import Card from "../components/products/Card";
+import Card from "@/components/products/Card";
 import SearchWithDropdown from "@/components/SearchWithDropdown";
-import { categories, brands, ratings } from "@/data/index";
 
-export default function ProductsPage({ initialProducts, totalPages }) {
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const [highToLow, setHighToLow] = useState(false);
-  const [lowToHigh, setLowToHigh] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedRating, setSelectedRating] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10);
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState(initialProducts);
-  const [suggestions, setSuggestions] = useState(
-    initialProducts.map((p) => p.name)
-  );
-
-  // Filter products based on selected criteria
-  useEffect(() => {
-    let updatedProducts = [...initialProducts];
-
-    if (selectedCategory) {
-      updatedProducts = updatedProducts.filter(
-        (p) => p.category === selectedCategory
-      );
-    }
-    if (selectedBrand) {
-      updatedProducts = updatedProducts.filter(
-        (p) => p.brand === selectedBrand
-      );
-    }
-    if (selectedRating) {
-      updatedProducts = updatedProducts.filter(
-        (p) => p.rating >= selectedRating
-      );
-    }
-    if (minPrice) {
-      updatedProducts = updatedProducts.filter(
-        (p) => parseFloat(p.price) >= parseFloat(minPrice)
-      );
-    }
-    if (maxPrice) {
-      updatedProducts = updatedProducts.filter(
-        (p) => parseFloat(p.price) <= parseFloat(maxPrice)
-      );
-    }
-
-    if (highToLow) {
-      updatedProducts = updatedProducts.sort((a, b) => b.price - a.price);
-    } else if (lowToHigh) {
-      updatedProducts = updatedProducts.sort((a, b) => a.price - b.price);
-    }
-
-    setFilteredProducts(updatedProducts);
-    setSuggestions(updatedProducts.map((p) => p.name));
-  }, [
-    selectedCategory,
-    selectedBrand,
-    selectedRating,
-    highToLow,
-    lowToHigh,
-    minPrice,
-    maxPrice,
-    initialProducts,
-  ]);
-
-  // Handle search queries
-  const handleSearch = (query) => {
-    const searchResults = initialProducts.filter((p) =>
-      p.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setFilteredProducts(searchResults);
+export default function ProductsPage({
+  products,
+  totalPages,
+  categories,
+  brands,
+  ratings,
+  currentPage,
+  category,
+  brand,
+  rating,
+  minPrice,
+  maxPrice,
+}) {
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set(name, value); // Update the query parameter
+    window.location.search = queryParams.toString(); // Reload the page with new filters
   };
-
-  // Pagination logic
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-  const totalPagesCalculated = Math.ceil(
-    filteredProducts.length / productsPerPage
-  );
-
-  function handleHighToLow() {
-    setHighToLow(true);
-    setLowToHigh(false);
-  }
-
-  function handleLowToHigh() {
-    setLowToHigh(true);
-    setHighToLow(false);
-  }
-
-  function handleClearFilters() {
-    setHighToLow(false);
-    setLowToHigh(false);
-    setSelectedCategory("");
-    setSelectedBrand("");
-    setSelectedRating("");
-    setMinPrice("");
-    setMaxPrice("");
-  }
-
-  function handleCategoryChange(event) {
-    setSelectedCategory(event.target.value);
-  }
-
-  function handleBrandChange(event) {
-    setSelectedBrand(event.target.value);
-  }
-
-  function handleRatingChange(event) {
-    setSelectedRating(event.target.value);
-  }
 
   return (
     <div className="bg-gray-50">
@@ -134,62 +36,45 @@ export default function ProductsPage({ initialProducts, totalPages }) {
 
         <div className="flex flex-col lg:flex-row">
           <aside className="w-full lg:w-1/4 lg:mr-8 mb-6 lg:mb-0">
-            <button
-              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 lg:hidden"
-            >
-              {mobileFiltersOpen ? "Hide Filters" : "Show Filters"}
-            </button>
-
-            <div
-              className={`${
-                mobileFiltersOpen ? "block" : "hidden"
-              } lg:block bg-white p-4 rounded-lg shadow-lg mt-4 lg:mt-0`}
-            >
-              <div className="mb-4">
-                <h3 className="text-sm font-medium text-gray-900">Sort by</h3>
-                <div className="flex flex-col space-y-2 mt-2">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      checked={lowToHigh}
-                      onChange={handleLowToHigh}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-gray-700">Low to High</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      checked={highToLow}
-                      onChange={handleHighToLow}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-gray-700">High to Low</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="mb-4">
+            <div className="space-y-4">
+              {/* Category Filter */}
+              <div>
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-semibold text-gray-700"
+                >
+                  Category
+                </label>
                 <select
-                  value={selectedCategory}
-                  onChange={handleCategoryChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="category"
+                  name="category"
+                  className="mt-1 block w-full border-gray-300 rounded-md"
+                  defaultValue={category}
+                  onChange={handleFilterChange}
                 >
                   <option value="">All Categories</option>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
                     </option>
                   ))}
                 </select>
               </div>
 
-              <div className="mb-4">
+              {/* Brand Filter */}
+              <div>
+                <label
+                  htmlFor="brand"
+                  className="block text-sm font-semibold text-gray-700"
+                >
+                  Brand
+                </label>
                 <select
-                  value={selectedBrand}
-                  onChange={handleBrandChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="brand"
+                  name="brand"
+                  className="mt-1 block w-full border-gray-300 rounded-md"
+                  defaultValue={brand}
+                  onChange={handleFilterChange}
                 >
                   <option value="">All Brands</option>
                   {brands.map((brand) => (
@@ -200,79 +85,89 @@ export default function ProductsPage({ initialProducts, totalPages }) {
                 </select>
               </div>
 
-              <div className="mb-4">
+              {/* Rating Filter */}
+              <div>
+                <label
+                  htmlFor="rating"
+                  className="block text-sm font-semibold text-gray-700"
+                >
+                  Rating
+                </label>
                 <select
-                  value={selectedRating}
-                  onChange={handleRatingChange}
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="rating"
+                  name="rating"
+                  className="mt-1 block w-full border-gray-300 rounded-md"
+                  defaultValue={rating}
+                  onChange={handleFilterChange}
                 >
                   <option value="">All Ratings</option>
-                  {Object.entries(ratings).map(([value, label], index) => (
-                    <option key={index} value={value}>
-                      {label}
+                  {ratings.map((ratingValue) => (
+                    <option key={ratingValue} value={ratingValue}>
+                      {ratingValue} Stars
                     </option>
                   ))}
                 </select>
               </div>
 
-              <div className="flex items-center justify-between space-x-2 mb-4">
+              {/* Price Range Filter */}
+              <div>
+                <label
+                  htmlFor="minPrice"
+                  className="block text-sm font-semibold text-gray-700"
+                >
+                  Price Range
+                </label>
                 <input
                   type="number"
-                  value={minPrice}
-                  onChange={(e) => setMinPrice(e.target.value)}
+                  id="minPrice"
+                  name="minPrice"
                   placeholder="Min Price"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 block w-full border-gray-300 rounded-md"
+                  defaultValue={minPrice}
+                  onChange={handleFilterChange}
                 />
                 <input
                   type="number"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
+                  id="maxPrice"
+                  name="maxPrice"
                   placeholder="Max Price"
-                  className="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="mt-1 block w-full border-gray-300 rounded-md"
+                  defaultValue={maxPrice}
+                  onChange={handleFilterChange}
                 />
               </div>
-
-              <button
-                onClick={handleClearFilters}
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
-              >
-                Clear Filters
-              </button>
             </div>
           </aside>
 
           <main className="w-full lg:w-3/4">
-            <SearchWithDropdown
-              suggestions={suggestions}
-              onSearch={handleSearch}
-              setSuggestions={setSuggestions}
-            />
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-              {currentProducts.map((product) => (
-                <Card key={product.id} product={product} />
+            <SearchWithDropdown suggestions={products.map((p) => p.name)} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+              {products.map((p) => (
+                <Card key={p.id} product={p} />
               ))}
             </div>
-
-            {/* Pagination Controls */}
-            <div className="flex justify-center mt-6">
-              <button
-                onClick={() => setCurrentPage(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <span className="px-4 py-2">
-                {currentPage} of {totalPagesCalculated}
-              </span>
-              <button
-                onClick={() => setCurrentPage(currentPage + 1)}
-                disabled={currentPage === totalPagesCalculated}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50"
-              >
-                Next
-              </button>
+            <div className="flex justify-between items-center mt-8">
+              <div className="flex space-x-2">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i + 1}
+                    className={`px-4 py-2 rounded-lg ${
+                      currentPage === i + 1
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    }`}
+                    onClick={() => {
+                      const queryParams = new URLSearchParams(
+                        window.location.search
+                      );
+                      queryParams.set("page", i + 1);
+                      window.location.search = queryParams.toString(); // Trigger page reload
+                    }}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
             </div>
           </main>
         </div>
@@ -280,38 +175,61 @@ export default function ProductsPage({ initialProducts, totalPages }) {
     </div>
   );
 }
-export async function getServerSideProps(context) {
+
+export async function getServerSideProps({ query }) {
+  const {
+    page = 1,
+    category = "",
+    brand = "",
+    rating = "",
+    minPrice = "",
+    maxPrice = "",
+  } = query;
+  const productsPerPage = 10;
+
   try {
+    // Fetch products data from API or database based on filters
     const res = await fetch(
-      `http://localhost:3000/api/product?page=1&limit=10`
+      `http://localhost:3000/api/product?page=${page}&category=${category}&brand=${brand}&rating=${rating}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${productsPerPage}`
     );
-
-    // Check if the response is OK (status code 200)
-    if (!res.ok) {
-      throw new Error(`HTTP error! Status: ${res.status}`);
-    }
-
     const data = await res.json();
 
-    // Ensure data is structured as expected
-    if (!data.products) {
-      throw new Error("Invalid response structure");
+    if (!data || !data.products) {
+      throw new Error("Invalid response data");
     }
 
+    // Return products and filter data (categories, brands, etc.)
     return {
       props: {
-        initialProducts: data.products,
-        totalPages: data.pages,
+        products: data.products || [],
+        totalPages: data.totalPages || 0,
+        categories: data.categories || [],
+        brands: data.brands || [],
+        ratings: data.ratings || [],
+        currentPage: parseInt(page, 10), // Include current page number
+        category,
+        brand,
+        rating,
+        minPrice,
+        maxPrice,
       },
     };
   } catch (error) {
     console.error("Error fetching products:", error.message);
     return {
       props: {
-        initialProducts: [],
+        products: [],
         totalPages: 0,
+        categories: [],
+        brands: [],
+        ratings: [],
+        currentPage: 1,
+        category: "",
+        brand: "",
+        rating: "",
+        minPrice: "",
+        maxPrice: "",
       },
     };
   }
 }
-
