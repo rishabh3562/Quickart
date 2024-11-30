@@ -17,13 +17,40 @@ export default async function handler(req, res) {
         const skip = (page - 1) * limit;
 
         try {
-            // Fetch filtered products
-            const products = await Product.find(filters).skip(skip).limit(parseInt(limit));
+            // Aggregation query to fetch both products and metadata
+            const result = await Product.aggregate([
+                // Stage 1: Apply filters for products
+                { $match: filters },
 
-            // Calculate total products matching the filters
-            const total = await Product.countDocuments(filters);
+                // Stage 2: Use `$facet` to perform multiple operations in parallel
+                {
+                    $facet: {
+                        products: [
+                            { $skip: skip },
+                            { $limit: parseInt(limit) },
+                        ],
+                        metadata: [
+                            { $count: "total" },
+                        ],
+                    },
+                },
+                // Stage 3: Project metadata and products together
+                {
+                    $project: {
+                        products: 1,
+                        total: { $arrayElemAt: ["$metadata.total", 0] },
+                    },
+                },
+            ]);
 
-            // Extract unique categories, brands, and ratings
+            if (!result || result.length === 0) {
+                return res.status(404).json({ message: 'No products found' });
+            }
+
+            const { products, total } = result[0];
+            const totalPages = Math.ceil(total / limit);
+
+            // Extract categories, brands, and ratings
             const categories = await Product.distinct("category");
             const brands = await Product.distinct("brand");
             const ratings = await Product.distinct("rating");
@@ -31,17 +58,17 @@ export default async function handler(req, res) {
             res.status(200).json({
                 products,
                 total,
-                page: parseInt(page),
-                pages: Math.ceil(total / limit),
+                totalPages,
                 categories,
                 brands,
-                ratings
+                ratings,
             });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Error fetching products' });
         }
     } else if (req.method === 'POST') {
+        // Handle POST request (same as before)
         const { id, name, href, price, description, options, quantity, images, details, imageSrc, imageAlt, category, brand, material, rating, reviews, availability } = req.body;
 
         if (!id || !name || !price || !description || !images || !imageSrc || !category) {
