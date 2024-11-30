@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     await dbConnect();
 
     if (req.method === 'GET') {
-        const { page = 1, limit = 10, category, brand, rating, minPrice, maxPrice } = req.query;
+        const { page = 1, limit = 10, category, brand, rating, minPrice, maxPrice, pid } = req.query;
 
         const filters = {};
         if (category) filters.category = category;
@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         if (rating) filters.rating = { $gte: parseFloat(rating) };
         if (minPrice) filters.price = { $gte: parseFloat(minPrice) };
         if (maxPrice) filters.price = { ...filters.price, $lte: parseFloat(maxPrice) };
+        if (pid) filters.id = pid; // Use `pid` to filter by product `id`
 
         const skip = (page - 1) * limit;
 
