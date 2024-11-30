@@ -13,7 +13,7 @@ import {
   calculateTax,
   calculateTotal,
   calculateTotalBeforePromo,
-} from "@/utils/utilityFunctions";
+} from "@/lib/utilityFunctions";
 import Link from "next/link";
 import Router from "next/router";
 

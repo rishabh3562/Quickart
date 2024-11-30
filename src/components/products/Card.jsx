@@ -5,7 +5,7 @@ import { useProductStore, useCartStore, useLikeStore } from "@/store";
 import { ShoppingCartIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { isInCart, isLiked } from "@/utils/utilityFunctions";
+import { isInCart, isLiked } from "@/lib/utilityFunctions";
 
 function Card({ product }) {
   const [cart, setCart] = useCartStore((state) => [state.cart, state.setCart]);
@@ -37,7 +37,9 @@ function Card({ product }) {
           </p>
         </div>
         <div className="flex items-center justify-between mt-4">
-          <p className="text-lg font-bold text-gray-900">{"₹ " + product.price}</p>
+          <p className="text-lg font-bold text-gray-900">
+            {"₹ " + product.price}
+          </p>
           <div className="flex items-center space-x-3">
             {isLiked(like, product) ? (
               <Icon

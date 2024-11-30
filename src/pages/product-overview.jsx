@@ -13,7 +13,7 @@ import { products } from "@/data/index";
 import Router from "next/router";
 import Link from "next/link";
 import { useCartStore, useLikeStore } from "@/store";
-import { isInCart, isLiked } from "@/utils/utilityFunctions";
+import { isInCart, isLiked } from "@/lib/utilityFunctions";
 import { toast } from "react-hot-toast";
 import { Icon } from "@iconify/react";
 
