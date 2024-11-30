@@ -39,10 +39,11 @@ const likeStore = (set) => ({
 
 const userStore = (set) => ({
   user: null,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   setUser: (user) => set({ user }),
-  setToken: (token) => set({ token }),
-  logout: () => set({ user: null, token: null }),
+  setTokens: (accessToken, refreshToken) => set({ accessToken, refreshToken }),
+  logout: () => set({ user: null, accessToken: null, refreshToken: null }),
 });
 
 export const useLikeStore = create(
