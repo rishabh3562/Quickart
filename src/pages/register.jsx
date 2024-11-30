@@ -16,7 +16,7 @@ const Register = () => {
 
     try {
       await register(email, password); // Call register hook
-      router.push("/product"); // Redirect to a private route (e.g., dashboard)
+      router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Failed to register. Please try again.");
     }

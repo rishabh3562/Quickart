@@ -1,29 +1,27 @@
-// pages/login.js
 import { useState } from "react";
 import { useLogin } from "@/hooks/useLogin";
 import { useUserStore } from "@/store";
 import { useRouter } from "next/router";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const login = useLogin();
   const router = useRouter();
-const {user}= useUserStore();
+  const { user } = useUserStore();
 
+  if (user) {
+    router.push("/products");
+  }
 
-if(user){
-    router.push('/products');
-    console.log("user info:",user);
-}
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
 
     try {
-      await login(username, password);
-      router.push("/dashboard"); // Redirect to a private route (e.g., dashboard)
+      await login(email, password);
+      router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Invalid credentials");
     }
@@ -37,15 +35,15 @@ if(user){
       >
         <h2 className="text-2xl mb-4">Login</h2>
         <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-medium">
-            Username
+          <label htmlFor="email" className="block text-sm font-medium">
+            Email
           </label>
           <input
-            type="text"
-            id="username"
+            type="email"
+            id="email"
             className="w-full p-2 border rounded"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
@@ -69,6 +67,11 @@ if(user){
         >
           Login
         </button>
+        <div className="mt-4 text-center">
+          <a href="/register" className="text-blue-500 hover:underline">
+            Don't have an account? Register
+          </a>
+        </div>
       </form>
     </div>
   );
