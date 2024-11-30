@@ -37,9 +37,24 @@ const likeStore = (set) => ({
   setLike: (data) => set({ like: data }),
 });
 
+const userStore = (set) => ({
+  user: null,
+  token: null,
+  setUser: (user) => set({ user }),
+  setToken: (token) => set({ token }),
+  logout: () => set({ user: null, token: null }),
+});
+
 export const useLikeStore = create(
   persist(likeStore, {
     name: "like-data",
+    storage: createJSONStorage(() => localStorage),
+  })
+);
+
+export const useUserStore = create(
+  persist(userStore, {
+    name: "user",
     storage: createJSONStorage(() => localStorage),
   })
 );
