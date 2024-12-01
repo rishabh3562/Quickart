@@ -5,10 +5,16 @@ export default function Document() {
     <Html lang="en">
       <Head>
         {/* SEO Meta Tags */}
-        <meta name="description" content="Quickart - Your One-Stop Online Store for Best Deals on Electronics, Fashion & More" />
-        <meta name="keywords" content="Quickart, online store, ecommerce, shopping, electronics, fashion, home appliances, deals" />
+        <meta
+          name="description"
+          content="Quickart - Your One-Stop Online Store for Best Deals on Electronics, Fashion & More"
+        />
+        <meta
+          name="keywords"
+          content="Quickart, online store, ecommerce, shopping, electronics, fashion, home appliances, deals"
+        />
         <meta name="robots" content="index, follow" />
-        <meta name="Rishabh Dubey" content="Quickart Team" />
+        <meta name="author" content="Rishabh Dubey" />
 
         {/* Open Graph Meta Tags (For Social Media) */}
         <meta property="og:title" content="Quickart - Your One-Stop Online Store" />
@@ -28,8 +34,42 @@ export default function Document() {
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
 
+        {/* Preload the image */}
+        <link
+          rel="preload"
+          href="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920"
+          as="image"
+          type="image/jpeg"
+        />
+
         {/* Apple Touch Icon for iOS */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+        {/* Additional Icons for PWA */}
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/assets/favicon-16x16.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/assets/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/assets/android-chrome-192x192.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/assets/android-chrome-512x512.png"
+        />
 
         {/* Manifest File for PWA (Progressive Web App) */}
         <link rel="manifest" href="/manifest.json" />
@@ -55,8 +95,11 @@ export default function Document() {
           }}
         ></script>
 
-        {/* Google Fonts (if any) */}
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+        {/* Google Fonts */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
 
         {/* Additional SEO Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

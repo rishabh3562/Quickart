@@ -52,7 +52,7 @@ const Home = () => {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Discover Premium Tech Products
+              Discover Premium Products
             </h1>
             <p className="text-lg md:text-xl text-gray-200 mb-8">
               Experience the future with our curated selection of premium technology products.
