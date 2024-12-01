@@ -1,79 +1,81 @@
-README.md
----------
+# Quickart - E-commerce Web Application
 
-### E-commerce Shopping Cart Application (Next.js)
+Quickart is an e-commerce web app designed to provide users with a seamless online shopping experience. The app showcases products across various categories like electronics, fashion, and home appliances.
 
-**This project is a basic e-commerce shopping cart built using Next.js.** It demonstrates core functionalities like product listing, cart management, and basic calculations.
+## Features
+- **Product Overview**: Users can explore products from different categories.
+- **Shopping Cart**: Add, remove, and view items in the cart.
+- **Checkout**: Complete the purchase with an easy checkout process.
+- **User Authentication**: Sign up, login, and manage accounts.
+- **Progressive Web App (PWA)**: Supports offline functionality and adds to the home screen.
 
-**Getting Started**
+## Technologies Used
+- **Frontend**: React, Next.js, Tailwind CSS
+- **Backend**: Node.js (with possible integration with MongoDB)
+- **Deployment**: Vercel
+- **Others**: Preload images, SEO optimizations, structured data
 
-1.  Clone this repository:
+## SEO & PWA Features
+### Meta Tags:
+- Added description, keywords, robots meta tags for better search engine ranking.
+- Custom author meta tag for brand identity.
 
-    Bash
+### Open Graph Tags:
+- `og:title`, `og:description`, `og:type`, `og:image`, `og:url` for optimized social media sharing.
 
+### Twitter Cards:
+- `twitter:card`, `twitter:site`, `twitter:title`, `twitter:description`, `twitter:image` for Twitter preview.
+
+### Preloading:
+- Preloaded important images to improve page load speed.
+
+### Structured Data:
+- Added JSON-LD for SEO-rich snippets using Schema.org (Organization schema).
+
+### Manifest for PWA:
+- Linked `manifest.json` to enable Progressive Web App support.
+
+### Favicon & Icons:
+- Set up multiple sizes of favicon and Apple touch icons for a better mobile experience.
+
+### Canonical Link:
+- Implemented `rel="canonical"` to prevent duplicate content issues.
+
+## Environment Variables
+Before running the project, set up your environment variables. Example of environment variables are provided in the `.env.example` file. Copy the content into a `.env` file in the root directory of your project.
+
+
+## Installation
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/rishabh3562/coneixement-assignment-frontend.git
     ```
-    git clone https://github.com/rishabh3562/Profile.fyi---Assignment.git
+
+2. Navigate into the project directory:
+    ```bash
+    cd coneixement
     ```
 
-    Use code [with caution.](/faq#coding)
-
-3.  Navigate to the project directory:
-
-    Bash
-
-    ```
-    cd   1. github.com github.com your-repo-name
-    ```
-
-    Use code [with caution.](/faq#coding)
-
-4.  Install dependencies:
-
-    Bash
-
-    ```
+3. Install the dependencies:
+    ```bash
     npm install
     ```
 
-    Use code [with caution.](/faq#coding)
-
-6.  Start the development server:
-
-    Bash
-
-    ```
+4. Run the development server:
+    ```bash
     npm run dev
     ```
 
-    Use code [with caution.](/faq#coding)
+## Deployment
+This project is deployed on Vercel.
 
-    The application will be accessible at http://localhost:3000
+## Screenshots
+![Landing Page](https://github.com/user-attachments/assets/f4a0791d-0544-4864-ae6a-65e7977b6dc1)
+![Products Page](https://github.com/user-attachments/assets/2c589496-983e-4068-a165-0b5fd654f617)
 
- 
-**Project Structure:**
-
--   `components`: Reusable components for product cards, cart items, etc.
--   `pages`: Next.js pages for product listing and cart.
--   `public`: Static assets (images, etc.)
--   `data`: Contains product data (replace with API integration if desired)
-
-**Features:**
-
--   Product listing with basic product details.
--   Add to cart functionality.
--   Cart page with item management (quantity, removal).
--   Basic cart calculations (subtotal, total).
-
-**Note:**
-
--   This project is a simplified example and might lack features like user authentication, payment integration, and advanced styling.
-
-
-**Potential Improvements:**
-
--   Implement product filtering and sorting.
--   Integrate a payment gateway for checkout.
--   Add user authentication and persistent cart storage.
--   Improve UI/UX with better design and interactions.
-
-**Feel free to contribute and enhance the project!**
+## Contributing
+1. Fork the repository.
+2. Create your branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a new Pull Request.
