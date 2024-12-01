@@ -14,8 +14,8 @@ const Login = () => {
   const { user } = useUserStore();
 
   if (user) {
-    // router.push("/products");
-    console.log("if user wlae mai", user);
+    router.push("/products");
+    // console.log("if user wlae mai", user);
   }
 
   const handleLogin = async (e) => {
@@ -28,15 +28,9 @@ const Login = () => {
       // Decode the access token and set the user in the store
       const decoded = jwtDecode(accessToken); // Import jwtDecode if not done
       console.log("decode login wale mai", decoded);
-      useUserStore
-        .getState()
-        .hydrateStore(
-          { id: decoded.id, email: decoded.email },
-          accessToken,
-          refreshToken
-        );
+ 
 
-      // router.push("/products"); // Redirect to a private route (e.g., dashboard)
+      router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Invalid credentials");
     }

@@ -19,37 +19,62 @@ export async function getServerSideProps(context) {
 export default function ProductDetailPage({ product }) {
   const user = useUserStore((state) => state.user); // Access user from store
   const userId = user ? user.id : null;
-
+console.log("proudct in product overview is",product)
   // Add to Cart using the API
-  const handleAddToCart = async () => {
-    if (userId) {
-      const res = await fetch("http://localhost:3000/api/cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: userId,
-          items: [
-            {
-              product: product,
-              quantity: 1,
-            },
-          ],
-        }),
-      });
-console.log("userid in the handleAddToCart in product-overview",userId)
-      const data = await res.json();
-      if (data.message === "Product added to cart") {
-        alert("Product added to cart!");
-      } else {
-        alert("Error adding product to cart");
-      }
-    } else {
-      alert("Please log in to add items to the cart.");
-    }
-  };
+//   const handleAddToCart = async () => {
+//     if (userId) {
+//       const res = await fetch("http://localhost:3000/api/cart", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({
+//           user: userId,
+//           items: [
+//             {
+//               product: product,
+//               quantity: 1,
+//             },
+//           ],
+//         }),
+//       });
+// console.log("userid in the handleAddToCart in product-overview",userId)
+//       const data = await res.json();
+//       if (data.message === "Product added to cart") {
+//         alert("Product added to cart!");
+//       } else {
+//         alert("Error adding product to cart");
+//       }
+//     } else {
+//       alert("Please log in to add items to the cart.");
+//     }
+//   };
 
+const handleAddToCart = async () => {
+  if (userId) {
+    const res = await fetch("http://localhost:3000/api/cart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: product._id, // Assuming product._id is the MongoDB product ID
+        quantity: 1,
+      }),
+    });
+
+    console.log("userId in the handleAddToCart in product-overview", userId);
+
+    const data = await res.json();
+    if (data.message === "Product added to cart") {
+      alert("Product added to cart!");
+    } else {
+      alert("Error adding product to cart");
+    }
+  } else {
+    alert("Please log in to add items to the cart.");
+  }
+};
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
