@@ -28,12 +28,12 @@ export default async function handler(req, res) {
             const accessToken = jwt.sign(
                 { id: newUser._id, email: newUser.email },
                 process.env.JWT_SECRET,
-                { expiresIn: "15m" }
+                { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
             );
             const refreshToken = jwt.sign(
                 { id: newUser._id, email: newUser.email },
                 process.env.JWT_REFRESH_SECRET,
-                { expiresIn: "7d" }
+                { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
             );
 
             // Set JWT in cookies for secure access
@@ -42,14 +42,14 @@ export default async function handler(req, res) {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production", // Ensure secure cookies in prod
                     sameSite: "Strict",
-                    maxAge: 15 * 60, // 15 minutes for access token
+                    maxAge: 60 * 60 * 24,
                     path: "/",
                 }),
                 serialize("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                     sameSite: "Strict",
-                    maxAge: 7 * 24 * 60 * 60, // 7 days for refresh token
+                    maxAge: 60 * 60 * 24 * 7,
                     path: "/",
                 }),
             ]);

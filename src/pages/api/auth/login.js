@@ -28,12 +28,12 @@ export default async function handler(req, res) {
             const accessToken = jwt.sign(
                 { id: user._id, email: user.email },
                 process.env.JWT_SECRET,
-                { expiresIn: process.env.JWT_SECRET }
+                { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
             );
             const refreshToken = jwt.sign(
                 { id: user._id, email: user.email },
                 process.env.JWT_REFRESH_SECRET,
-                { expiresIn: process.env.JWT_REFRESH_SECRET }
+                { expiresIn: process.env.COOKIE_ACCESS_TOKEN_EXPIRY }
             );
 
             // Set cookies with JWTs
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
                 cookie.serialize("accessToken", accessToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-                    maxAge: process.env.COOKIE_ACCESS_TOKEN_EXPIRY, // 15 minutes
+                    maxAge: 60 * 60 * 24,
                     path: "/",
                 })
             );
@@ -51,7 +51,7 @@ export default async function handler(req, res) {
                 cookie.serialize("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-                    maxAge: process.env.COOKIE_REFRESH_TOKEN_EXPIRY, // 7 days
+                    maxAge: 60 * 60 * 24 * 7, // 7 days
                     path: "/",
                 })
             );
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
             res.status(200).json({ message: "Login successful" });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: "Internal Server Error" });
+            res.status(500).json({ message: "Internal Server Error", errmsg: error.message });
         }
     } else {
         res.status(405).json({ message: "Method Not Allowed" });
