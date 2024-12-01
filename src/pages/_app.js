@@ -4,6 +4,7 @@ import Layout from "../components/Layout/Layout";
 import "../styles/globals.css";
 import { useUserStore } from "@/store";
 import axios from "axios";
+import { ROUTES } from "@/lib/routes";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -12,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("/api/auth/me", { withCredentials: true });
+        const response = await axios.get(ROUTES.API.ME, { withCredentials: true });
         hydrateStore({ id: response.data.id, email: response.data.email });
       } catch (error) {
         console.error("Error fetching user data:", error);

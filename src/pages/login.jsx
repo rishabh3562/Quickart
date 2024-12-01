@@ -4,6 +4,8 @@ import { useUserStore } from "@/store";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { jwtDecode } from "jwt-decode";
+import { ROUTES } from "@/lib/routes";
+import SEO from "@/components/SEO";
 // jwtDecode(token, options)
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +16,7 @@ const Login = () => {
   const { user } = useUserStore();
 
   if (user) {
-    router.push("/products");
+    router.push(ROUTES.CLIENT.PRODUCT);
     // console.log("if user wlae mai", user);
   }
 
@@ -29,7 +31,7 @@ const Login = () => {
       const decoded = jwtDecode(accessToken); // Import jwtDecode if not done
       console.log("decode login wale mai", decoded);
 
-      router.push("/products"); // Redirect to a private route (e.g., dashboard)
+      router.push(ROUTES.CLIENT.PRODUCT); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Invalid credentials");
     }

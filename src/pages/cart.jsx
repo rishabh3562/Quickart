@@ -7,6 +7,7 @@ import EmptyCart from "../../public/png/empty-cart.png";
 import Link from "next/link";
 import Router from "next/router";
 import SEO from "@/components/SEO";
+import { ROUTES } from "@/lib/routes";
 export default function Cart() {
   const [cart, setCart] = useState([]);
   const [promoCode, setPromoCode] = useState("");
@@ -16,7 +17,7 @@ export default function Cart() {
   useEffect(() => {
     // Fetch cart data from the API
     const fetchCart = async () => {
-      const res = await fetch("/api/cart", {
+      const res = await fetch(ROUTES.API.CART, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -206,7 +207,7 @@ export default function Cart() {
                     onClick={(e) => {
                       e.preventDefault();
                       setCart([]); // Clear cart
-                      Router.push("/checkout");
+                      Router.push(ROUTES.CLIENT.CHECKOUT);
                     }}
                     className="w-full rounded-md border border-transparent bg-black py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                   >

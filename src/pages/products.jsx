@@ -1,7 +1,7 @@
-import Layout from "@/components/Layout/Layout";
+
 import Card from "@/components/products/Card";
 import SEO from "@/components/SEO";
-// import SearchWithDropdown from "@/components/SearchWithDropdown";
+import { ROUTES } from "@/lib/routes";
 
 export default function ProductsPage({
   products,
@@ -240,7 +240,7 @@ export async function getServerSideProps({ query }) {
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/product?page=${page}&category=${category}&brand=${brand}&rating=${rating}&minPrice=${minPrice}&maxPrice=${maxPrice}&search=${search}&limit=${productsPerPage}`
+      `${ROUTES.BASE_URL}/api/product?page=${page}&category=${category}&brand=${brand}&rating=${rating}&minPrice=${minPrice}&maxPrice=${maxPrice}&search=${search}&limit=${productsPerPage}`
     );
     const data = await res.json();
 

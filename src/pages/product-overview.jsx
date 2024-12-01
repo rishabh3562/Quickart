@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Star, ShoppingCart } from "lucide-react";
+import { Star, ShoppingCart, Route } from "lucide-react";
 import { useUserStore } from "@/store";
 import SEO from "@/components/SEO";
+import { ROUTES } from "@/lib/routes";
 async function getProductData(pid) {
-  const res = await fetch(`http://localhost:3000/api/product/detail/${pid}`);
+  const res = await fetch(ROUTES.API_URL.PRODUCT_DETAIL(pid));
   const data = await res.json();
   return data.product;
 }
@@ -20,39 +21,11 @@ export default function ProductDetailPage({ product }) {
   const user = useUserStore((state) => state.user); // Access user from store
   const userId = user ? user.id : null;
 console.log("proudct in product overview is",product)
-  // Add to Cart using the API
-//   const handleAddToCart = async () => {
-//     if (userId) {
-//       const res = await fetch("http://localhost:3000/api/cart", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           user: userId,
-//           items: [
-//             {
-//               product: product,
-//               quantity: 1,
-//             },
-//           ],
-//         }),
-//       });
-// console.log("userid in the handleAddToCart in product-overview",userId)
-//       const data = await res.json();
-//       if (data.message === "Product added to cart") {
-//         alert("Product added to cart!");
-//       } else {
-//         alert("Error adding product to cart");
-//       }
-//     } else {
-//       alert("Please log in to add items to the cart.");
-//     }
-//   };
 
 const handleAddToCart = async () => {
   if (userId) {
-    const res = await fetch("http://localhost:3000/api/cart", {
+    console.log("Routes",ROUTES.API_URL.CART)
+    const res = await fetch(ROUTES.API_URL.CART, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 // hooks/useRegister.js
+import { ROUTES } from "@/lib/routes";
 import { useUserStore } from "@/store";
 import axios from "axios";
 
@@ -7,7 +8,7 @@ export const useRegister = () => {
 
     const register = async (email, password) => {
         try {
-            const response = await axios.post("/api/auth/register", { email, password });
+            const response = await axios.post(ROUTES.API.SIGNUP, { email, password });
 
             // At this point, the JWT tokens are already set in cookies (no need to handle them here)
             // Get the user information from the response or directly from the stored data

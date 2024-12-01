@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useRegister } from "@/hooks/useRegister";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/store";
-
+import SEO from "@/components/SEO";
+import { ROUTES } from "@/lib/routes";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +19,7 @@ const Register = () => {
 
     try {
       await register(email, password); // Call register hook
-      router.push("/products"); // Redirect to a private route (e.g., dashboard)
+      router.push(ROUTES.CLIENT.PRODUCT); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Failed to register. Please try again.");
     }

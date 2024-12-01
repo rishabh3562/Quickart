@@ -1,3 +1,4 @@
+import { ROUTES } from "@/lib/routes";
 import { useUserStore } from "@/store";
 import axios from "axios";
 
@@ -8,10 +9,10 @@ export const useLogin = () => {
   const login = async (email, password) => {
     try {
       // First, attempt to log in
-      const response = await axios.post("/api/auth/login", { email, password });
+      const response = await axios.post(ROUTES.API.LOGIN, { email, password });
 
       // Fetch user data after login
-      const response2 = await axios.get("/api/auth/me", { withCredentials: true });
+      const response2 = await axios.get(ROUTES.API.ME, { withCredentials: true });
 
       // Avoid name conflict by renaming email from response2
       const { id, email: fetchedEmail } = response2.data;

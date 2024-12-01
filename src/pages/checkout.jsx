@@ -1,6 +1,7 @@
 import React from "react";
 import CheckoutGif from "../../public/gif/checkout.gif";
 import Image from "next/image";
+import SEO from "@/components/SEO";
 function Checkout() {
   return (
     <>
