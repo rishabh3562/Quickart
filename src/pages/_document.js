@@ -72,7 +72,7 @@ export default function Document() {
         />
 
         {/* Manifest File for PWA (Progressive Web App) */}
-        <link rel="manifest" href="/manifest.json" />
+        {/* <link rel="manifest" href="/manifest.json" /> */}
 
         {/* Structured Data - JSON-LD (For Rich Snippets) */}
         <script
