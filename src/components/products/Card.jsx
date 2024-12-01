@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
-import { useProductStore, useCartStore, useLikeStore } from "@/store";
+import { useCartStore, useLikeStore } from "@/store";
 import { ShoppingCartIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import toast from "react-hot-toast";

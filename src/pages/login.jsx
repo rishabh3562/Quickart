@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       await login(email, password);
-      router.push("/products"); // Redirect to a private route (e.g., dashboard)
+      // router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Invalid credentials");
     }

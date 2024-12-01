@@ -1,5 +1,3 @@
-// pages/api/auth/register.js
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dbConnect from "@/lib/dbconnect";
 import User from "@/models/User"; // Your User model
@@ -19,8 +17,8 @@ export default async function handler(req, res) {
                 return res.status(400).json({ message: "User already exists" });
             }
 
-            const hashedPassword = await bcrypt.hash(password, 12);
-            const newUser = new User({ email, password: hashedPassword });
+            // Create a new user without manually hashing the password
+            const newUser = new User({ email, password });
 
             const savedUser = await newUser.save();
 
@@ -54,7 +52,6 @@ export default async function handler(req, res) {
                 }),
             ]);
 
-            // Send success response (no tokens in response body, they are in cookies)
             res.status(201).json({ message: "User registered successfully" });
         } catch (error) {
             console.error(error);

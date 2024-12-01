@@ -1,9 +1,8 @@
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dbConnect from "@/lib/dbconnect";
-import User from "@/models/User"; // Assume you have a User model
+import User from "@/models/User";
 import cookie from "cookie";
-
+import { serialize } from "cookie";
 // Login user
 export default async function handler(req, res) {
     if (req.method === "POST") {
@@ -14,12 +13,14 @@ export default async function handler(req, res) {
 
             // Check if the user exists
             const user = await User.findOne({ email });
+            console.log('User found:', user); // Log user object
             if (!user) {
                 return res.status(400).json({ message: "Invalid email or password" });
             }
 
-            // Verify password
-            const isPasswordCorrect = await bcrypt.compare(password, user.password);
+            // Use the comparePassword method from the schema
+            const isPasswordCorrect = await user.comparePassword(password);
+            console.log('Password comparison result:', isPasswordCorrect); // Log result
             if (!isPasswordCorrect) {
                 return res.status(400).json({ message: "Invalid email or password" });
             }
@@ -33,32 +34,28 @@ export default async function handler(req, res) {
             const refreshToken = jwt.sign(
                 { id: user._id, email: user.email },
                 process.env.JWT_REFRESH_SECRET,
-                { expiresIn: process.env.COOKIE_ACCESS_TOKEN_EXPIRY }
+                { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
             );
 
             // Set cookies with JWTs
-            res.setHeader(
-                "Set-Cookie",
-                cookie.serialize("accessToken", accessToken, {
+            res.setHeader("Set-Cookie", [
+                serialize("accessToken", accessToken, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+                    secure: process.env.NODE_ENV === "production",
                     maxAge: 60 * 60 * 24,
                     path: "/",
-                })
-            );
-            res.setHeader(
-                "Set-Cookie",
-                cookie.serialize("refreshToken", refreshToken, {
+                }),
+                serialize("refreshToken", refreshToken, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-                    maxAge: 60 * 60 * 24 * 7, // 7 days
+                    secure: process.env.NODE_ENV === "production",
+                    maxAge: 60 * 60 * 24 * 7,
                     path: "/",
                 })
-            );
+            ]);
 
             res.status(200).json({ message: "Login successful" });
         } catch (error) {
-            console.error(error);
+            console.error('Error during login:', error); // Log the exact error
             res.status(500).json({ message: "Internal Server Error", errmsg: error.message });
         }
     } else {

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRegister } from "@/hooks/useRegister";
 import { useRouter } from "next/router";
+import { useUserStore } from "@/store";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +10,8 @@ const Register = () => {
   const [error, setError] = useState(null);
   const register = useRegister();
   const router = useRouter();
-
+const {user}=useUserStore();
+console.log("user in register",user)
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);
