@@ -21,7 +21,7 @@ export const useLogin = () => {
       setUser({ id, email: fetchedEmail });
 
     } catch (error) {
-      console.error("Login failed", error);
+      // console.error("Login failed", error);
     }
   };
 

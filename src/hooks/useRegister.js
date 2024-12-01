@@ -17,7 +17,7 @@ export const useRegister = () => {
             // Optionally, you can fetch user data from an API if necessary after registration
 
         } catch (error) {
-            console.error("Registration failed", error);
+            // console.error("Registration failed", error);
             throw error; // Let the caller handle errors if needed
         }
     };

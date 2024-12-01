@@ -6,7 +6,7 @@ const connection = {};
 async function dbConnect() {
     // Check if we have a connection to the database or if it's currently connecting
     if (connection.isConnected) {
-        console.log('Already connected to the database');
+        // console.log('Already connected to the database');
         return connection;
     }
 
@@ -16,10 +16,10 @@ async function dbConnect() {
 
         connection.isConnected = db.connections[0].readyState;
 
-        console.log('Database connected successfully');
+        // console.log('Database connected successfully');
         return connection;
     } catch (error) {
-        console.error('Database connection failed:', error);
+        // console.error('Database connection failed:', error);
 
 
         process.exit(1);

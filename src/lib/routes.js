@@ -1,6 +1,6 @@
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL; // Base URL comes from environment variables
-console.log("base 🥲🥲🥲🥲",BASE_URL)
+// console.log("base ",BASE_URL)
 export const ROUTES = {
     BASE_URL,
     API_URL: {

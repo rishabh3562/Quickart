@@ -89,14 +89,14 @@ export const useUserStore = create((set) => ({
       });
 
       if (response.ok) {
-        console.log("Logout successful");
+        // console.log("Logout successful");
         // Optionally, redirect after logout (e.g., to login page)
         window.location.href = "/login"; // Or any other page you want to redirect to
       } else {
-        console.error("Logout failed");
+        // console.error("Logout failed");
       }
     } catch (error) {
-      console.error("Error during logout:", error);
+      // console.error("Error during logout:", error);
     }
   },
   hydrateStore: (userData, accessToken, refreshToken) => {

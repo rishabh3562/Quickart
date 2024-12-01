@@ -26,10 +26,10 @@ const Login = () => {
 
     try {
       const { accessToken, refreshToken } = await login(email, password);
-      console.log("accessToken in login.jsx", accessToken);
+      // console.log("accessToken in login.jsx", accessToken);
       // Decode the access token and set the user in the store
       const decoded = jwtDecode(accessToken); // Import jwtDecode if not done
-      console.log("decode login wale mai", decoded);
+      // console.log("decode login wale mai", decoded);
 
       router.push(ROUTES.CLIENT.PRODUCT); // Redirect to a private route (e.g., dashboard)
     } catch (err) {

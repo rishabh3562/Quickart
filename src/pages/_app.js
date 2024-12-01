@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
         const response = await axios.get(ROUTES.API.ME, { withCredentials: true });
         hydrateStore({ id: response.data.id, email: response.data.email });
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       }
     };
 

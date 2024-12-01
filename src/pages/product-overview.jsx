@@ -20,11 +20,11 @@ export async function getServerSideProps(context) {
 export default function ProductDetailPage({ product }) {
   const user = useUserStore((state) => state.user); // Access user from store
   const userId = user ? user.id : null;
-console.log("proudct in product overview is",product)
+// console.log("proudct in product overview is",product)
 
 const handleAddToCart = async () => {
   if (userId) {
-    console.log("Routes",ROUTES.API_URL.CART)
+    // console.log("Routes",ROUTES.API_URL.CART)
     const res = await fetch(ROUTES.API_URL.CART, {
       method: "POST",
       headers: {
@@ -36,7 +36,7 @@ const handleAddToCart = async () => {
       }),
     });
 
-    console.log("userId in the handleAddToCart in product-overview", userId);
+    // console.log("userId in the handleAddToCart in product-overview", userId);
 
     const data = await res.json();
     if (data.message === "Product added to cart") {

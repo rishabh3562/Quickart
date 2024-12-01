@@ -25,7 +25,7 @@ export default async function handler(req, res) {
             // If product is found, send the product data in the response
             res.status(200).json({ product });
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             res.status(500).json({ message: 'Error fetching product' });
         }
     } else {

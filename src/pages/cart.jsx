@@ -23,10 +23,10 @@ export default function Cart() {
           "Content-Type": "application/json",
         },
       });
-      console.log("res in the cart useEffect", res);
+      // console.log("res in the cart useEffect", res);
       const data = await res.json();
-      console.log("data in the cart useEffect", data);
-      console.log("data in the cart useEffect", data);
+      // console.log("data in the cart useEffect", data);
+      // console.log("data in the cart useEffect", data);
       if (res.ok) {
         setCart(data.cart.items); // Set the cart items in state
         settotalAmount(data.totalAmount);

@@ -12,7 +12,7 @@ const Register = () => {
   const register = useRegister();
   const router = useRouter();
   const { user } = useUserStore();
-  console.log("user in register", user);
+  // console.log("user in register", user);
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(null);

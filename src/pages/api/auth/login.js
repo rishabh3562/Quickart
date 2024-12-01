@@ -13,14 +13,14 @@ export default async function handler(req, res) {
 
             // Check if the user exists
             const user = await User.findOne({ email });
-            console.log('User found:', user); // Log user object
+            // console.log('User found:', user); // Log user object
             if (!user) {
                 return res.status(400).json({ message: "Invalid email or password" });
             }
 
             // Use the comparePassword method from the schema
             const isPasswordCorrect = await user.comparePassword(password);
-            console.log('Password comparison result:', isPasswordCorrect); // Log result
+            // console.log('Password comparison result:', isPasswordCorrect); // Log result
             if (!isPasswordCorrect) {
                 return res.status(400).json({ message: "Invalid email or password" });
             }
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
 
             res.status(200).json({ message: "Login successful" });
         } catch (error) {
-            console.error('Error during login:', error); // Log the exact error
+            // console.error('Error during login:', error); // Log the exact error
             res.status(500).json({ message: "Internal Server Error", errmsg: error.message });
         }
     } else {

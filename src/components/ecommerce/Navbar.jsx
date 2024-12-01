@@ -12,7 +12,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cart, setCart] = useCartStore((state) => [state.cart, state.setCart]);
   const { user,logout } = useUserStore();
-console.log("user in navbar",user)
+// console.log("user in navbar",user)
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
