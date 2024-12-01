@@ -64,8 +64,13 @@ export default async function handler(req, res) {
             if (!cart) {
                 return res.status(404).json({ message: "Cart is empty" });
             }
+            // Calculate the total amount
+            const totalAmount = cart.items.reduce((total, item) => {
+                const price = parseFloat(item.product.price);  // Assuming the price is stored as a string
+                return total + price * item.quantity;
+            }, 0);
 
-            res.status(200).json({ cart });
+            res.status(200).json({ cart, totalAmount });
 
         } else {
             res.setHeader("Allow", ["POST", "GET"]);
