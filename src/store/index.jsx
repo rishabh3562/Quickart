@@ -176,10 +176,31 @@ export const useUserStore = create((set) => ({
       },
     });
   },
-  logout: () => {
+  logout: async () => {
+    // Remove tokens from cookies
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
     set({ user: null, accessToken: null, refreshToken: null });
+
+    // Call the backend to delete cookies from the server
+    try {
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        console.log("Logout successful");
+        // Optionally, redirect after logout (e.g., to login page)
+        window.location.href = "/login"; // Or any other page you want to redirect to
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   },
   hydrateStore: (userData, accessToken, refreshToken) => {
     set({ user: userData, accessToken, refreshToken });
