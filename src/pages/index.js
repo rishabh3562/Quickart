@@ -1,7 +1,8 @@
 import { ArrowRight, Shield, Truck, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import SEO from '@/components/SEO';
+// SEO
 const Home = () => {
   const features = [
     {
@@ -38,6 +39,7 @@ const Home = () => {
 
   return (
     <div>
+      <SEO />
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center">
         <Image

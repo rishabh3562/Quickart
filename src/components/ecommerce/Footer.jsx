@@ -7,7 +7,7 @@ function Footer() {
       <div className="container mx-auto px-4 py-8 mt-8">
         <div className="flex flex-wrap justify-between items-start">
           <div className="w-full md:w-1/3 mb-8 md:mb-0">
-            <h2 className="text-2xl font-bold font-Lustria">QuicKart</h2>
+            <h2 className="text-2xl font-bold">QuicKart</h2>
             <p className="mt-4 text-sm font-Lato text-gray-600">
               Get the latest fashion trends and be inspired
             </p>
@@ -49,7 +49,7 @@ function Footer() {
               />
               <button
                 type="submit"
-                className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700"
+                className="w-full bg-black text-white py-2 rounded-md hover:bg-indigo-700"
               >
                 Subscribe
               </button>

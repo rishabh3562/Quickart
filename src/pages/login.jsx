@@ -28,7 +28,6 @@ const Login = () => {
       // Decode the access token and set the user in the store
       const decoded = jwtDecode(accessToken); // Import jwtDecode if not done
       console.log("decode login wale mai", decoded);
- 
 
       router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
@@ -37,52 +36,60 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <form
-        onSubmit={handleLogin}
-        className="p-6 bg-white rounded shadow-md w-96"
-      >
-        <h2 className="text-2xl mb-4">Login</h2>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            className="w-full p-2 border rounded"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className="w-full p-2 border rounded"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded"
+    <>
+      <SEO
+        title="Login to Quickart"
+        description="Access your Quickart account to manage orders, track shipments, and more."
+        url="https://coneixement-assignment-frontend.vercel.app/login"
+      />
+
+      <div className="flex justify-center items-center min-h-screen">
+        <form
+          onSubmit={handleLogin}
+          className="p-6 bg-white rounded shadow-md w-96"
         >
-          Login
-        </button>
-        <div className="mt-4 text-center">
-          <Link href="/register" className="text-blue-500 hover:underline">
-            Don&apost have an account? Register
-          </Link>
-        </div>
-      </form>
-    </div>
+          <h2 className="text-2xl mb-4">Login</h2>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="w-full p-2 border rounded"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="block text-sm font-medium">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full p-2 border rounded"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+          <button
+            type="submit"
+            className="w-full p-2 bg-blue-500 text-white rounded"
+          >
+            Login
+          </button>
+          <div className="mt-4 text-center">
+            <Link href="/register" className="text-blue-500 hover:underline">
+              Don&apost have an account? Register
+            </Link>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

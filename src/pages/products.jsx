@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout/Layout";
 import Card from "@/components/products/Card";
+import SEO from "@/components/SEO";
 // import SearchWithDropdown from "@/components/SearchWithDropdown";
 
 export default function ProductsPage({
@@ -34,6 +35,10 @@ export default function ProductsPage({
 
   return (
     <div className="bg-gray-50">
+      <SEO
+        title="All Products"
+        description="Browse our collection of top-quality products across various categories at Quickart."
+      />
       <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <header className="flex flex-col lg:flex-row justify-between items-center border-b border-gray-300 pb-6 mb-8">
           <h1 className="text-3xl lg:text-5xl font-extrabold text-gray-900">
