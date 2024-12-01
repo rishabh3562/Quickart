@@ -1,22 +1,21 @@
-// pages/api/auth/logout.js
+import cookie from "cookie";
 import { serialize } from "cookie";
-
 // Logout user
 export default async function handler(req, res) {
     if (req.method === "POST") {
         try {
-            // Clear the cookies by setting them to expire in the past
+            // Set cookies to expire immediately to logout the user
             res.setHeader("Set-Cookie", [
                 serialize("accessToken", "", {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",
-                    maxAge: -1, // Expire the cookie immediately
+                    secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+                    maxAge: 0, // Expire the cookie
                     path: "/",
                 }),
                 serialize("refreshToken", "", {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    maxAge: -1, // Expire the cookie immediately
+                    maxAge: 0, // Expire the cookie
                     path: "/",
                 }),
             ]);
@@ -24,7 +23,7 @@ export default async function handler(req, res) {
             res.status(200).json({ message: "Logout successful" });
         } catch (error) {
             console.error('Error during logout:', error);
-            res.status(500).json({ message: "Internal Server Error", errmsg: error.message });
+            res.status(500).json({ message: "Internal Server Error" });
         }
     } else {
         res.status(405).json({ message: "Method Not Allowed" });

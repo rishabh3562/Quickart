@@ -41,17 +41,20 @@ export default async function handler(req, res) {
             res.setHeader("Set-Cookie", [
                 serialize("accessToken", accessToken, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",
-                    maxAge: 60 * 60 * 24,
+                    secure: process.env.NODE_ENV === "production", // Secure in production
+                    sameSite: "Lax", // Allow cookies in cross-origin if needed; use "None" for cross-site
+                    maxAge: 60 * 60 * 24, // 1 day
                     path: "/",
                 }),
                 serialize("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    maxAge: 60 * 60 * 24 * 7,
+                    sameSite: "Lax",
+                    maxAge: 60 * 60 * 24 * 7, // 7 days
                     path: "/",
-                })
+                }),
             ]);
+
 
             res.status(200).json({ message: "Login successful" });
         } catch (error) {

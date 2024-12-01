@@ -7,10 +7,18 @@ export const useLogin = () => {
 
   const login = async (email, password) => {
     try {
+      // First, attempt to log in
       const response = await axios.post("/api/auth/login", { email, password });
 
-      // After successful login, you can get the response (no tokens in this example as they are set in cookies)
-      setUser({ email });  // Store user details from response or use email directly
+      // Fetch user data after login
+      const response2 = await axios.get("/api/auth/me", { withCredentials: true });
+
+      // Avoid name conflict by renaming email from response2
+      const { id, email: fetchedEmail } = response2.data;
+
+      // Update the user store with the fetched data
+      setUser({ id, email: fetchedEmail });
+
     } catch (error) {
       console.error("Login failed", error);
     }

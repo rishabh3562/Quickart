@@ -3,7 +3,8 @@ import { useLogin } from "@/hooks/useLogin";
 import { useUserStore } from "@/store";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
+import { jwtDecode } from "jwt-decode";
+// jwtDecode(token, options)
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +14,8 @@ const Login = () => {
   const { user } = useUserStore();
 
   if (user) {
-    router.push("/products");
+    // router.push("/products");
+    console.log("if user wlae mai", user);
   }
 
   const handleLogin = async (e) => {
@@ -21,7 +23,19 @@ const Login = () => {
     setError(null);
 
     try {
-      await login(email, password);
+      const { accessToken, refreshToken } = await login(email, password);
+      console.log("accessToken in login.jsx", accessToken);
+      // Decode the access token and set the user in the store
+      const decoded = jwtDecode(accessToken); // Import jwtDecode if not done
+      console.log("decode login wale mai", decoded);
+      useUserStore
+        .getState()
+        .hydrateStore(
+          { id: decoded.id, email: decoded.email },
+          accessToken,
+          refreshToken
+        );
+
       // router.push("/products"); // Redirect to a private route (e.g., dashboard)
     } catch (err) {
       setError("Invalid credentials");

@@ -38,7 +38,7 @@ export default function ProductDetailPage({ product }) {
           ],
         }),
       });
-
+console.log("userid in the handleAddToCart in product-overview",userId)
       const data = await res.json();
       if (data.message === "Product added to cart") {
         alert("Product added to cart!");
@@ -62,7 +62,9 @@ export default function ProductDetailPage({ product }) {
                 alt={product.images[0].alt}
                 width={400}
                 height={400}
-                className="w-full h-full object-center object-cover"
+                style={{ objectFit: "cover", objectPosition: "center" }}
+                className="w-full h-full"
+                priority // Add this if the image is above the fold
               />
             </div>
           </div>

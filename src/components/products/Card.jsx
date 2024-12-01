@@ -18,9 +18,11 @@ function Card({ product }) {
           <Image
             src={product.imageSrc}
             alt={product.imageAlt}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="rounded-t-lg"
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Adjust according to your layout
           />
         </div>
       </Link>
